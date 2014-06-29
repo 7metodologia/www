@@ -1,0 +1,9 @@
+Para que funcione tienen que modificar los archivos:
+-conectar-bd.php
+-control.php
+
+conectar-bd.php
+    colocar los datos de la BD
+    
+control.php
+    editar el query "$query"
