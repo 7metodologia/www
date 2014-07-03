@@ -102,80 +102,29 @@
                     </div>
                 </div>     
 
-                    <?php #NOMBRE DE AGRUPACION
+                    <?php #LISTADO AGRUPACION (AGRUPACION)
                         # conexión a la base de datos
                         require('sesion/conectar-bd.php');
                     
-                        $query = "SELECT Nombre_Agrupacion, Tipo FROM agrupaciones WHERE Id_Agrupacion = ".$_SESSION["id_agrupacion"]
-                            or die("Error in the consult.." . mysqli_error($conexion_bd));
-                    
-                        if ($resultado = mysqli_query($conexion_bd, $query))
+                        #AGRUPACION
+                        if($_SESSION["tipo_usuario"] == "agrupacion")
                         {
-                            $fila = mysqli_fetch_row($resultado);
-                            
-                            echo '<h2>'.$fila[0].' <small>'.$fila[1].'</small></h2>';
+                            include("listar_agrupaciones_agrupacion.php");
+                        } 
 
-                            mysqli_free_result($resultado);
+                        #CULTURA
+                        else if ($_SESSION["tipo_usuario"] == "cultura")
+                        {
+                            echo 'antes';
+                            require('listar_agrupaciones_cultura.php');
+                            echo 'despues';
                         }
+                    
+                        
                     
                         mysqli_close ( $conexion_bd );
                     
                     ?>
-                    
-                    <?php #AGREGAR MIEMBRO
-                        echo '<a href="#"><button class="btn btn-default btn-sm" alt="Nuevo miembro" title="Nuevo miembro" >
-                                <span class="glyphicon glyphicon-plus"></span></button></a>';
-                    ?>
-
-                    </br>
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>CI</th>
-                          <th>Nombre</th>
-                          <th>Apellido</th>
-                          <th>Email</th>
-                          <th>Carrera</th>
-                          <th>Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          
-                          <?php #MOSTRAR LISTA DE MIEMBROS
-                            # conexión a la base de datos
-                            //require('sesion/conectar-bd.php');
-                            # Realizamos la conexi�n a la base de datos                                            
-                            $conexion_bd = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("Error " . mysqli_error($link));
-                        
-                            $query = "SELECT CI_miembro, Nombre, Apellido, Email, Carrera 
-                                        FROM miembros 
-                                        WHERE Id_Agrupacion = ".$_SESSION["id_agrupacion"]
-                                or die("Error in the consult.." . mysqli_error($conexion_bd));
-                        
-                            if ($resultado = mysqli_query($conexion_bd, $query))
-                            {
-                                //$fila = mysqli_fetch_array($resultado);
-                                
-                                while ($fila=mysqli_fetch_row($resultado))
-                                {
-                                    echo '<tr><td>'.$fila[0].
-                                            '</td><td>'.$fila[1].
-                                            '</td><td>'.$fila[2].
-                                            '</td><td>'.$fila[3].
-                                            '</td><td>'.$fila[4].'</td>
-                                            <td><button class="btn btn-default btn-sm" alt="Eliminar" title="Eliminar" onclick="confirmarEliminar('.$fila[0].',\''.$fila[1].'\',\''.$fila[2].'\');">
-                                                    <span class="glyphicon glyphicon-trash"></span></button></td></tr>';
-                                }
-                                
-                                mysqli_free_result($resultado);
-                            }
-                        
-                            mysqli_close ( $conexion_bd );
-                        
-                          ?>
-                          
-                      </tbody>
-                    </table> 
 
  
                 </div>
@@ -206,11 +155,11 @@
     <script src="/cultura/js/jquery-1.10.2.js"></script>
     <script src="/cultura/js/bootstrap.js"></script>
     <script>
-        function confirmarEliminar(ci,nombre,apellido)
+        function confirmarEliminar(ci,nombre,apellido,id_agrupacion)
         {
             if(confirm("Seguro que desea eliminar a "+nombre+" "+apellido+" con CI: "+ci))
                 window.location="/cultura/php/querys.php?funcion=eliminarMiembro&ci="+ci+
-                    "&id_agrupacion="+"<?php echo $_SESSION["id_agrupacion"] ?>";
+                    "&id_agrupacion="+id_agrupacion;
         }
     </script>
 

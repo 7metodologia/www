@@ -112,14 +112,21 @@
                 </div>
             </div>
             
+            
+            <!-- FORMULARIO INICIO DE SESION -->
+            
             <div class="col-md-4" style="margin-top:50px">
                 <h1>Inicio de sesión</h1></br>
             
                 
-
+                
                 <form role="form" name="inicio_sesion_post_frm" action="php/sesion/control.php" method="post" enctype="application/x-www-form-urlencoded">
                   <div class="form-group">
-                    <?php
+                      <input class="form-group" type="radio" id="tipousuario_radio" name="tipousuario_radio" value="cultura" > Cultura<br>
+                      <input class="form-group" type="radio" id="tipousuario_radio" name="tipousuario_radio" value="agrupacion" > Agrupaci&oacute;n<br>
+                  </div>
+                  <div class="form-group">
+                    <?php #ERROR USUARIO
                         error_reporting(E_ALL ^ E_NOTICE);
                         if($_GET["error"]=="si")
                             echo '<span style="color:red;">Ingrese su nombre de usuario</span></br>';
@@ -128,7 +135,7 @@
                     <input type="text" class="form-control" id="usuario_txt" name="usuario_txt" placeholder="usuario">
                   </div>
                   <div class="form-group">
-                    <?php
+                    <?php #ERROR CONTRASEÑA
                         error_reporting(E_ALL ^ E_NOTICE);
                         if($_GET["error"]=="si")
                             echo '<span style="color:red;">Ingrese su contrase&ntilde;a</span></br>';
@@ -142,6 +149,10 @@
                   </br>
                   </small>
                 </form>
+                <!-- FORMULARIO INICIO DE SESION -->
+        
+        
+        
             </div>
             
 
